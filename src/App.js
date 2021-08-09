@@ -3,54 +3,28 @@ import { DashboardTop } from './components/dashboard/dashboard-top/index';
 import { DashboardList } from './components/dashboard/dashboard-list/index';
 import { Header } from './components/header/header.component';
 import './App.css';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { SearchBox } from './components/shared/search-box/search-box.component';
+import Login from './components/login/login.component';
+import Dashboard from './components/dashboard';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 class App extends Component {
 
   constructor(){
     super();
-    this.state = {
-      tasks: [ ],
-      taskResult:'',
-      searchField:''
-    };
-
-    // this.handleChange = this.handleChange.bind(this);
   }
-
-
-  componentDidMount(){
-    fetch('https://task-management-service.herokuapp.com/tasks').then(response => response.json())
-    .then(res => this.setState({ tasks: res.result }));
-
-    fetch('https://task-management-service.herokuapp.com/dashboard').then(response => response.json())
-    .then(res => this.setState({ taskResult: res.result }));
-    
-
-  }
-
-
- handleChange = (e) =>{
-      this.setState({ searchField: e.target.value}, () => console.log(this.state));
- }
-
-
-
 
   render() {
-
-    const { tasks, taskResult, searchField } = this.state;
-
-    const filteredTasks = tasks.filter( task => 
-      task.title.toLowerCase().includes(searchField.toLowerCase())
-      );
-
       return(
-          <div className="App">
-          <Header/>
-            <DashboardTop tasks={filteredTasks} taskResult={taskResult}/>
-            <DashboardList tasks={filteredTasks} taskResult={taskResult}/>
-          </div>
+        <div className='App'>
+          <Router>
+            <Switch>
+            <Route exact path='/' component={Login} />
+            <Route path="/dashboard" component={Dashboard} />
+            </Switch>
+          </Router>
+        </div>  
       );
   }
 }

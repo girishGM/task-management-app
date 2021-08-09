@@ -1,21 +1,25 @@
-import React from 'react';
+import React ,{useEffect, useState} from "react";
 
-import './latest-tasks.style.css';
+import "./latest-tasks.style.css";
 
+export const LatestTasks =(props) => {
+  const [latestTasks, setLatestTasks] = useState([]);
+  useEffect(() => {
+    const latestTasks = props.tasks.slice(0, 3);
+    setLatestTasks(latestTasks);
+  }, [props.tasks]);
 
-export const LatestTasks = props => (
-
-  <div className='card'> 
-    <h5>Latest created tasks</h5>
+  return (
+    <div className="card">
+      <h5>Latest created tasks</h5>
       <ul>
-      { 
-          props.tasks.map(task => (
-            
-            <li key={task.id} className={task.completed ? 'completedTask' : '' }>{task.title}</li>
-          )
-        )
-      }   
-    </ul>
+        {latestTasks.length && latestTasks.map((task) => (
+          <li key={task.id} className={task.completed ? "completedTask" : ""}>
+            {task.title}
+          </li>
+        ))}
+      </ul>
     </div>
-  
-);
+  );
+}
+

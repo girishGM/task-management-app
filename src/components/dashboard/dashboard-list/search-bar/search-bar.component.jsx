@@ -17,9 +17,7 @@ export const SearchBar = props => {
               placeholder='search by task name'
               handleChange={props.onClickMethod}
             />
-
           <ModelWindow buttonText='+New Task' modelHeading='+New Task'/>
-
           </div>
        </div>
   )

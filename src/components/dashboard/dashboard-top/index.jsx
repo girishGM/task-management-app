@@ -1,9 +1,9 @@
 import React from "react";
 import {TaskCompleted} from "./task-completed/task-completed.component";
-import {LatestTasks} from "./latest-tasks/latest-tasks.component";
 import {TaskChart} from "./task-chart/task-chart.component";
+import {LatestTasks} from './latest-tasks/latest-tasks.component';
 
-export const DashboardTop = props => {
+const DashboardTop = props => {
 
     return <div className="container">
                 <div className="row">
@@ -20,3 +20,5 @@ export const DashboardTop = props => {
                 </div> 
     
     };
+
+export default DashboardTop;    

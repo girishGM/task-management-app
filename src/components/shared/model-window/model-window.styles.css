@@ -1,5 +1,5 @@
-.button {
-    background-color: blue;
+.button-new {
+    background-color:#5285EC;
     color: white;
     font-size: 16px;
     padding: 5px 5px;
@@ -7,3 +7,18 @@
     margin-right: 5px;
     cursor: pointer;
     }
+
+.custom-model{
+    padding: 20px !important;
+    text-align: center;
+}
+.model-text {
+    
+    outline: none;
+    width: 100%;
+    line-height: 30px;
+    margin-right: 10px;
+    padding: 8px;
+    border-radius: 7px;
+  }
+  

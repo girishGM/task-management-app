@@ -8,11 +8,18 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "bootstrap": "^5.1.0",
+    "mobx": "^5.15.7",
+    "mobx-persist": "^0.4.1",
+    "mobx-react": "^6.1.8",
     "react": "^16.13.0",
     "react-crud-icons": "^1.0.1",
     "react-dom": "^16.13.0",
+    "react-minimal-pie-chart": "^8.2.0",
     "react-responsive-modal": "^6.1.0",
-    "react-scripts": "3.4.0"
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.0",
+    "react-toastify": "^7.0.4"
   },
   "scripts": {
     "start": "react-scripts start",
