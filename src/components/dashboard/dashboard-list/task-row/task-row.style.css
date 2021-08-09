@@ -1,0 +1,12 @@
+.task-list {
+    display: flex;
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding-left: 25px;
+    padding-right: 25px;
+    height: 10vh; 
+    -moz-osx-font-smoothing: grayscale;
+    backface-visibility: hidden;
+    
+  }
+  
