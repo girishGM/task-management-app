@@ -11,14 +11,19 @@ import toastStore from "../../store/toast-store";
 
 const Dashboard = observer((props) => {
   const router = useHistory();
+  const [page, setPage] = useState(1)  ;
+  const [isLoading, setIsLoading] = useState(true)  ;
 
+  const loadMoreCommit = () =>{
+    setPage(page+1);
+  }
   useEffect(() => {
     if (!localStorage.getItem("access-token")) {
       router.push('/');
     }
     getTasks();
     getDashboardData();
-  });
+  },[page]);
 
   useEffect(() => {
        
@@ -70,6 +75,7 @@ const Dashboard = observer((props) => {
       .then((res) => {
         let result = res.result || { totalTasks: 0, completedTasks: 0 };
         taskStore.updateTaskCount(result.totalTasks, result.completedTasks);
+          setIsLoading(false);
       });
   };
 

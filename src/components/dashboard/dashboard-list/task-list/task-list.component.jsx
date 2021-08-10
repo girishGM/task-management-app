@@ -11,6 +11,9 @@ export const TaskList = props => {
 
 const [tasks,setTasks] = useState(props.tasks)  ;
 const [filteredTasks,setFilteredTasks] = useState(props.tasks)  ;
+const [taskResult,setTaskResult] = useState(props.taskResult)  ;
+const [searchField,setSearchField] = useState('')  ;
+
 
 useEffect(() => {
   if(props.tasks){
@@ -81,7 +84,6 @@ const completedTask = (id, taskStatus) => {
                 return task
               }
             });
-            console.log('filteredTaskList--'+filteredTaskList );
            taskStore.updateTask(filteredTaskList);
             let totalTask = taskStore.totalTask;
             let completedTask = taskStore.completedTask ;

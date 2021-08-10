@@ -1,6 +1,9 @@
 import React, { useState , useEffect} from 'react';
 import { useHistory } from "react-router-dom";
+import toastStore from '../../store/toast-store';
 import './login.styles.css';
+import { ToastContainer, toast } from 'react-toastify';
+import { observer } from "mobx-react";
 
 const Login = () => {
 
@@ -14,6 +17,22 @@ const Login = () => {
             router.push('/dashboard');
         } 
     })
+
+
+    useEffect(() => {
+       
+        if(toastStore.toastMessageType === 'error'){
+                toastStore.toastMessage && 
+                toast.error(toastStore.toastMessage, {
+                position: toast.POSITION.TOP_CENTER
+              });  
+        }else{
+                toastStore.toastMessage && 
+                toast.success(toastStore.toastMessage, {
+                position: toast.POSITION.TOP_CENTER
+              });
+        }        
+  }, [toastStore.toastMessageId])
 
     const handleChange =(event) =>{
         switch (event.target.name) {
@@ -41,13 +60,18 @@ const Login = () => {
             };
             fetch(process.env.REACT_APP_LOGIN_API, requestOptions).then(response => response.json())
               .then(res => {
-                let token = res.result && res.result.token;
-                if(token){
-                    localStorage.setItem('access-token',token);
-                    localStorage.setItem('user-name', userName);
-                    router.push('/dashboard');
+                if(res._status.code === 8000){  
+                    let token = res.result && res.result.token;
+                    if(token){
+                        localStorage.setItem('access-token',token);
+                        localStorage.setItem('user-name', userName);
+                        router.push('/dashboard');
+                    }else{
+                        toastStore.showToastMessage(res._status.message,'error', Date.now());
+                    }
                 }else{
-                    setErrorMessage('Invalid user credentials');
+                     
+                     toastStore.showToastMessage(res._status.message,'error', Date.now());
                 }
               }
             );
@@ -55,6 +79,8 @@ const Login = () => {
     }
 
     return (
+        <>
+        {toastStore.toastMessage && <ToastContainer/> }
         <div className='login-wrapper'>
         <div className='login-container'>
         <form >
@@ -73,6 +99,7 @@ const Login = () => {
         </form>
         </div>
         </div>
+        </>
     );
 }
 
