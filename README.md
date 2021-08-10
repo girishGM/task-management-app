@@ -12,7 +12,9 @@ A simple application to manage daily tasks.
 npm install 
 ```
 
-# To start the application 
+## To start the application 
+
+### npm
 
 ```bash
 npm start 
