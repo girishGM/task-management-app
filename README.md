@@ -5,11 +5,11 @@ A simple application to manage daily tasks.
 
 ## Get Started
 
-To get started, first get the code from the git hub repo then follow the below steps:
+To start get the code from the git hub repo then follow the below steps:
 
 ## Installation
 
-Go to project root directory and run :
+Go to project's root directory and run :
 
 ### npm
 
@@ -32,10 +32,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ## Note
 
---This application is using a back end service ( APIs ) <br/>
---Back end application APIs url can be manage from .env file as per the environment.<br/>
---Login API - To manage the login and generate a JWT token as per user's credentials.<br/>
---Tasks APIs - Manage all task related actions <br/>
+--This application is using a back-end service ( APIs ) <br/>
+--Back-end APIs url can be managed from .env file as per the environment (development, production).<br/>
+--Login API: To manage login and generate a JWT token as per user's credentials.<br/>
+--Tasks APIs: Manage all task related actions <br/>
     - Add task <br/>
     - Mark completed <br/>
     - Delete task <br/>
