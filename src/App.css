@@ -1,58 +1,10 @@
 .App {
   text-align: center;
   background-color: #f4f4f6;
+  min-height: 100vh;
 }
 
 h1 {
   font-family: 'Bigelow Rules';
   font-size: 72px;
-}
-.dashboard-div-top {
-    height: 20vh;
-    width: 100vw;
-    padding-top: 25px;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    display: flex;
-    flex-direction: row;
-    align-content: center;
-    justify-content: space-evenly;
-}
-
-.dashboard-div-bottom {
-  height: 60vh;
-  width: 90vw;
-  padding-top: 30px;
-  padding-left: 25px;
-  padding-right: 25px;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-}
-
-.login-container{
-  width: 25%;
-  margin: auto;
-  padding: 30px;
-  border-radius: 18px;
-  background-color: white;
-  box-shadow: 0.2px 0.2px 3px 0px;
-}
-
-.login-wrapper{
-  background-color: #f4f4f6;
-  height: 100vh;
-  padding-top: 10%;
-}
-
-@media (max-width:768px) {
-  .login-container{
-    width:80% !important;
-  } 
-
-  .login-wrapper{
-    padding-top: 30% !important;
-  }
 }

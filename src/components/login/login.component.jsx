@@ -1,8 +1,6 @@
-
-
-import React, { useState } from 'react';
-
+import React, { useState , useEffect} from 'react';
 import { useHistory } from "react-router-dom";
+import './login.styles.css';
 
 const Login = () => {
 
@@ -10,6 +8,12 @@ const Login = () => {
     const [userName, setUserName] = useState('');
     const [userId, setUserId] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+
+    useEffect(() => {
+        if(localStorage.getItem('access-token')){
+            router.push('/dashboard');
+        } 
+    })
 
     const handleChange =(event) =>{
         switch (event.target.name) {
@@ -35,11 +39,12 @@ const Login = () => {
                 headers: { 'Content-Type': 'application/json'},
                 body: JSON.stringify(payload)
             };
-            fetch('https://task-management-service.herokuapp.com/auth/login', requestOptions).then(response => response.json())
+            fetch(process.env.REACT_APP_LOGIN_API, requestOptions).then(response => response.json())
               .then(res => {
                 let token = res.result && res.result.token;
                 if(token){
                     localStorage.setItem('access-token',token);
+                    localStorage.setItem('user-name', userName);
                     router.push('/dashboard');
                 }else{
                     setErrorMessage('Invalid user credentials');

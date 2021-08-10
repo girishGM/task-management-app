@@ -1,50 +1,79 @@
-import React, { useState } from "react";
+import React from "react";
 import "./task-chart.style.css";
-import { PieChart } from "react-minimal-pie-chart";
-
+import { AgChartsReact } from 'ag-charts-react'
+import Skeleton from 'react-loading-skeleton';
 
 export const TaskChart = (props) => {
 
-  let data=[
-    {
-      color: "#C13C37",
-      title: "",
-      value: props.taskResult.totalTasks,
-      },
-      {
-        color: "#E38627",
-        title: "completed task",
-        value: props.taskResult.completedTasks,
+let options = {};
+
+var myTheme = {
+  baseTheme: 'ag-pastel',
+  palette: {
+      fills: [
+          '#f4f4f6',
+          '#0076C5',
+      ],
+      strokes: ['black']
+  },
+  overrides: {
+          pie: {
+          title: {
+              fontSize: 20
+          },
+          series: {
+              column: {
+                  label: {
+                      enabled: true,
+                      color: 'black'
+                  }
+              }
+          }
+      }
+  }
+};
+if(props.taskResult){
+ const dataPointTotal = props.taskResult.totalTasks - props.taskResult.completedTasks;
+ const dataPointCompleted = props.taskResult.completedTasks;
+
+ options =
+  {
+    theme: myTheme,
+    data: [
+        {
+          label: 'Remaining Task',
+          value: dataPointTotal,
         },
-    ];
+        {
+          label: 'Completed Task',
+          value: dataPointCompleted,
+        },
+      ],
+      series: [
+        {
+          type: 'pie',
+          angleKey: 'value',
+          labelKey: 'label',
+        },
+      ],
+      legend: {
+        enabled: false
+    }
+  };
+}
 
 return(
-  <div className="card">
-  <div className="chart-container">
-            <PieChart
-              animate
-              animationDuration={500}
-              animationEasing="ease-out"
-              center={[100, 120]}
-              data={data}
-              lengthAngle={360}
-              lineWidth={15}
-              paddingAngle={0}
-              radius={75}
-              rounded
-              startAngle={0}
-              viewBoxSize={[250, 250]}
-              label={(data) => data.dataEntry.title}
-              labelPosition={125}
-              labelStyle={{
-                fontSize: "10px",
-                fontColor: "FFFFFA",
-                fontWeight: "500",
-              }}
-            />
-          </div>
+  <>{
+    props.taskResult.totalTasks !== 0 ?
+      <div className="card-top">
+      <div className="chart-container" >         
+          <AgChartsReact options={options} />
       </div>
-  );
+      </div>
+      : <div className="card-top"><Skeleton count={4} /></div>
+}</>
+);
+
 }
 
 export default TaskChart;

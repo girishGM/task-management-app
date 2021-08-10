@@ -19,13 +19,14 @@ code {
 }
 
 
-.card {
+.card-top {
   padding: 15px;
   margin-bottom: 15px;
   background-color: white;
   box-shadow: 0 0 0 rgba(0,0,0,0.3);
   min-height: 150px;
   text-align: left;
+  border-radius: .75rem;
 }
 
 .completedTask{

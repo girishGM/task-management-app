@@ -4,18 +4,18 @@ import './task-list.style.css';
 import {SearchBar} from '../search-bar/search-bar.component';
 import taskStore from '../../../../store/task-store';
 import toastStore from '../../../../store/toast-store';
+import Skeleton from 'react-loading-skeleton';
 
 
 export const TaskList = props => {
 
 const [tasks,setTasks] = useState(props.tasks)  ;
 const [filteredTasks,setFilteredTasks] = useState(props.tasks)  ;
-const [taskResult,setTaskResult] = useState(props.taskResult)  ;
-const [searchField,setSearchField] = useState('')  ;
-
 
 useEffect(() => {
-  setTasks(JSON.parse(JSON.stringify(props.tasks)))
+  if(props.tasks){
+    setTasks(JSON.parse(JSON.stringify(props.tasks)))
+  }
 }, [props.tasks])
 
 
@@ -34,7 +34,7 @@ const deleteTask = (id, taskStatus) => {
     body: null,
   };
 
-  fetch("https://task-management-service.herokuapp.com/tasks/"+id, requestOptions)
+  fetch(process.env.REACT_APP_TASK_SERVICE_API_URL+"/tasks/"+id, requestOptions)
     .then((response) => response.json())
     .then((res) => {
       if(res._status.code === 9000){
@@ -65,7 +65,7 @@ const completedTask = (id, taskStatus) => {
     body: JSON.stringify({ completed: !taskStatus})
   };
 
-  fetch("https://task-management-service.herokuapp.com/tasks/"+id, requestOptions)
+  fetch(process.env.REACT_APP_TASK_SERVICE_API_URL+"/tasks/"+id, requestOptions)
     .then((response) => response.json())
     .then((res) => {
       if(res._status.code === 8004){
@@ -107,14 +107,15 @@ const handleChange = (e) =>{
     setFilteredTasks(filteredTaskVal);
 }
 
-
-  return <div className='container'>
+  return (<>{
+    filteredTasks.length ? 
+  <div className='container'>
    <SearchBar onClickMethod={handleChange} /> 
-  <div className='card'>
+  <div className='task-list' style={{minHeight:'250px'}}>
   <table className='table'> 
   <tbody>
       { 
-       filteredTasks.map(task => (
+        filteredTasks.map(task => (
         <tr key={task.id}>
           <td className='text-left'> 
           <input type='checkbox'  checked={task.completed} onChange={()=>completedTask(task.id, task.completed) }  style={{marginRight:'10px'}}  ></input>
@@ -135,8 +136,7 @@ const handleChange = (e) =>{
                 size = "small"
                 onClick = {()=>deleteTask(task.id, task.completed) } 
               />
-           </div> 
-            
+           </div>        
           </td>
        </tr>
       )
@@ -144,4 +144,10 @@ const handleChange = (e) =>{
     }  </tbody></table>
   </div>
   </div>
-  };
+  : <div className='container' style={{minHeight:'250px'}}>
+        <SearchBar onClickMethod={handleChange} /> 
+      <div className='card' style={{minHeight:'250px'}}><Skeleton count={8} />  </div>
+ </div>
+}</>
+  );
+};

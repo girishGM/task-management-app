@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Header } from "../header/header.component";
 import DashboardList from "./dashboard-list";
@@ -11,10 +11,6 @@ import toastStore from "../../store/toast-store";
 
 const Dashboard = observer((props) => {
   const router = useHistory();
-  const [tasks, setTasks] = useState([]);
-  const [taskResult, setTaskResult] = useState("");
-  const [searchField, setSearchField] = useState("");
-  const [toastMessage, setToastMessage] = useState("");
 
   useEffect(() => {
     if (!localStorage.getItem("access-token")) {
@@ -22,10 +18,10 @@ const Dashboard = observer((props) => {
     }
     getTasks();
     getDashboardData();
-  }, []);
+  });
 
   useEffect(() => {
-         
+       
         if(toastStore.toastMessageType === 'error'){
                 toastStore.toastMessage && 
                 toast.error(toastStore.toastMessage, {
@@ -36,8 +32,7 @@ const Dashboard = observer((props) => {
                 toast.success(toastStore.toastMessage, {
                 position: toast.POSITION.TOP_CENTER
               });
-        }
-        
+        }        
   }, [toastStore.toastMessageId])
 
   const getTasks = () => {
@@ -50,12 +45,11 @@ const Dashboard = observer((props) => {
       body: null,
     };
 
-    fetch("https://task-management-service.herokuapp.com/tasks", requestOptions)
+    fetch(process.env.REACT_APP_TASK_SERVICE_API_URL+'/tasks', requestOptions)
       .then((response) => response.json())
       .then((res) => {
         let result = res.result || [];
         taskStore.updateTask(result);
-        setTasks(result);
       });
   };
 
@@ -69,14 +63,13 @@ const Dashboard = observer((props) => {
       body: null,
     };
     fetch(
-      "https://task-management-service.herokuapp.com/dashboard",
+      process.env.REACT_APP_TASK_SERVICE_API_URL+"/dashboard",
       requestOptions
     )
       .then((response) => response.json())
       .then((res) => {
         let result = res.result || { totalTasks: 0, completedTasks: 0 };
-        taskStore.updateTaskCount(result.totalTasks, result.completedTasks)
-        setTaskResult(result);
+        taskStore.updateTaskCount(result.totalTasks, result.completedTasks);
       });
   };
 

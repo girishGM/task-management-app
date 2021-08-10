@@ -1,11 +1,38 @@
-## Available Scripts
 
-In the project directory, you can run:
+# Task management application
 
-### `yarn start`
+A simple application to manage daily tasks.
 
-Runs the app in the development mode.<br />
+
+## Installation
+
+### npm
+
+```bash
+npm install 
+```
+
+# To start the application 
+
+```bash
+npm start 
+```
+
+This will run the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+
+
+## Note
+
+--This application is using a back end service ( APIs )
+--Back end application APIs url can be manage from .env file as per the environment.
+--Login API - To manage the login and generate a JWT token as per user's credentials
+--Tasks APIs - Manage all task related actions - 
+    - Add task
+    - Mark completed
+    - Delete task
+    - Show dashboard
+
+
+
