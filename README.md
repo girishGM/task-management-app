@@ -3,8 +3,13 @@
 
 A simple application to manage daily tasks.
 
+## Get Started
+
+To get started, first get the code from the git hub repo then follow the below steps:
 
 ## Installation
+
+Go to project root directory and run :
 
 ### npm
 
