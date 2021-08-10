@@ -5,12 +5,11 @@ import './login.styles.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { observer } from "mobx-react";
 
-const Login = () => {
+const Login = observer(() => {
 
     const router = useHistory();
     const [userName, setUserName] = useState('');
     const [userId, setUserId] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         if(localStorage.getItem('access-token')){
@@ -65,6 +64,7 @@ const Login = () => {
                     if(token){
                         localStorage.setItem('access-token',token);
                         localStorage.setItem('user-name', userName);
+                        toastStore.clearData();
                         router.push('/dashboard');
                     }else{
                         toastStore.showToastMessage(res._status.message,'error', Date.now());
@@ -85,7 +85,6 @@ const Login = () => {
         <div className='login-container'>
         <form >
             <h5>Login</h5>
-            {errorMessage && <label className='alert alert-danger'>{errorMessage}</label>}
             <div className="form-group">
                 <input type="text" name='userId' onChange={handleChange} className="form-control" placeholder="Id" />
             </div>
@@ -101,6 +100,6 @@ const Login = () => {
         </div>
         </>
     );
-}
+});
 
 export default Login;
